@@ -1,27 +1,21 @@
-import axios from 'axios';
 import React, { useLayoutEffect, useState } from 'react';
 import {
   Dimensions,
+  FlatList,
   Image,
   StyleSheet,
   Text,
   View,
   useWindowDimensions,
 } from 'react-native';
-
-const DUMMY_PROFILES = [
-  {
-    id: 'p1',
-    name: 'Junhyung So',
-    baptismalName: 'John Bosco',
-    birthday: '1998-03-21',
-  },
-];
+import { getBirthdays, getCelebrations } from '../util/auth';
+import { getNextSevenDayBirthdays } from '../util/getNextSevenDayBdays';
 
 const HomeScreen = () => {
   const { width, height } = useWindowDimensions();
 
   const [celebrations, setCelebrations] = useState([]);
+  const [upcomingBirthdayProfiles, setUpcomingBirthdayProfiles] = useState([]);
 
   const today = new Date();
   const dayOfWeek = today.getDay();
@@ -36,18 +30,38 @@ const HomeScreen = () => {
   ];
 
   useLayoutEffect(() => {
-    const fetchData = async () => {
+    const fetchCelebrations = async () => {
       try {
-        const response = await axios.get(
-          'http://calapi.inadiutorium.cz/api/v0/en/calendars/general-en/today'
-        );
-        setCelebrations(response.data.celebrations);
+        const result = await getCelebrations();
+        setCelebrations(result.celebrations);
       } catch (error) {
         console.log(error);
       }
     };
-    // fetchData();
+
+    const fetchUpcomingBirthdays = async () => {
+      try {
+        const result = await getBirthdays();
+        const profilesWithUpcomingBirthdays = getNextSevenDayBirthdays(
+          Object.values(result)
+        );
+        setUpcomingBirthdayProfiles(profilesWithUpcomingBirthdays);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    // fetchCelebrations();
+    fetchUpcomingBirthdays();
   }, []);
+
+  const renderBirthdayItem = (profile) => {
+    return (
+      <View>
+        <Text>{profile.item.name}</Text>
+        <Text>{profile.item.birthday}</Text>
+      </View>
+    );
+  };
 
   return (
     <>
@@ -71,6 +85,11 @@ const HomeScreen = () => {
 
       <View>
         <Text> Upcoming Birthdays...</Text>
+        <FlatList
+          data={upcomingBirthdayProfiles}
+          renderItem={renderBirthdayItem}
+          keyExtractor={(profile) => profile.birthday}
+        ></FlatList>
       </View>
     </>
   );

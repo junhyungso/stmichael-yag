@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 import AuthContent from '../components/Auth/AuthContent';
 import LoadingOverlay from '../components/ui/LoadingOverlay';
 import { AuthContext } from '../store/auth-context';
-import { createUser, storeBirthday } from '../util/auth';
+import { createUser } from '../util/auth';
 
 const SignupScreen = () => {
   const [isAuthenticating, setisAuthenticating] = useState(false);
@@ -13,6 +13,7 @@ const SignupScreen = () => {
 
   const signupHandler = async ({ name, email, password, birthday }) => {
     setisAuthenticating(true);
+
     try {
       const token = await createUser(email, password);
       authCtx.authenticate(token);
@@ -22,15 +23,15 @@ const SignupScreen = () => {
       setisAuthenticating(false);
     }
 
-    try {
-      const birthdayInfo = {
-        name: name,
-        birthday: birthday,
-      };
-      const id = await storeBirthday(birthdayInfo);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const birthdayInfo = {
+    //     name: name,
+    //     birthday: birthday,
+    //   };
+    //   const id = await storeBirthday(birthdayInfo);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   if (isAuthenticating) {
