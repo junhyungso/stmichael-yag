@@ -8,7 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import { getBirthdays, getCelebrations } from '../util/auth';
+import { getBirthdays, getCelebrations } from '../util/api';
 import { getNextSevenDayBirthdays } from '../util/getNextSevenDayBdays';
 
 const HomeScreen = () => {

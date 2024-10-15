@@ -17,6 +17,7 @@ import PrayersScreen from './screens/PrayersScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SignupScreen from './screens/SignupScreen';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
+import ModalContextProvider, { ModalContext } from './store/modal-context';
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -25,13 +26,13 @@ const AuthStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Signup"
-        component={SignupScreen}
+        name="Login"
+        component={LoginScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Login"
-        component={LoginScreen}
+        name="Signup"
+        component={SignupScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -66,7 +67,11 @@ const ProfileStack = () => {
   return authCtx.isAuthenticated ? <AuthenticatedStack /> : <AuthStack />;
 };
 
+const EventsStack = () => {};
+
 const YagOverview = () => {
+  const modalCtx = useContext(ModalContext);
+
   return (
     <BottomTabs.Navigator
       initialRouteName="HomeScreen"
@@ -93,6 +98,14 @@ const YagOverview = () => {
           tabBarLabel: 'Events',
           tabBarActiveBackgroundColor: GlobalStyles.colors.accent500,
           tabBarIcon: ({ color, size }) => <Ionicons name="calendar" />,
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="add"
+              color={tintColor}
+              size={24}
+              onPress={modalCtx.openModal}
+            />
+          ),
         }}
       />
       <BottomTabs.Screen
@@ -113,6 +126,14 @@ const YagOverview = () => {
           tabBarLabel: 'Forum',
           tabBarActiveBackgroundColor: GlobalStyles.colors.accent500,
           tabBarIcon: ({ color, size }) => <Ionicons name="list" />,
+          headerRight: ({ tintColor }) => (
+            <IconButton
+              icon="add"
+              color={tintColor}
+              size={24}
+              onPress={modalCtx.openModal}
+            />
+          ),
         }}
       />
       <BottomTabs.Screen
@@ -166,7 +187,9 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <AuthContextProvider>
-        <Root />
+        <ModalContextProvider>
+          <Root />
+        </ModalContextProvider>
       </AuthContextProvider>
     </>
   );
