@@ -14,10 +14,22 @@ const InputModal = ({ isVisible, onClose }) => {
         <View style={styles.modalContent}>
           <View>
             <Input
-              label="Title"
-              // onUpdateValue={updateInputValueHandler.bind(this, 'email')}
-              // value={}
-              // isInvalid={}
+              label="Title: "
+              onUpdateValue={() => {}}
+              value={''}
+              isInvalid={false}
+            />
+          </View>
+          <View>
+            <Input
+              label="Description"
+              z
+              textInputConfig={{
+                multiline: true,
+                onChangeText: () => {},
+                value: '',
+              }}
+              // invalid={!inputs.description.isValid}
             />
           </View>
           <Button onPress={onClose}>
