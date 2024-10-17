@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { useContext, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 
 import IconButton from './components/ui/IconButton';
 import { GlobalStyles } from './constants/styles';
@@ -71,6 +71,15 @@ const EventsStack = () => {};
 
 const YagOverview = () => {
   const modalCtx = useContext(ModalContext);
+  const authCtx = useContext(AuthContext);
+
+  const handleNewForumClick = () => {
+    if (authCtx.isAuthenticated) {
+      modalCtx.openModal();
+    } else {
+      Alert.alert('You must be authenticated to add a new post.');
+    }
+  };
 
   return (
     <BottomTabs.Navigator
@@ -103,7 +112,7 @@ const YagOverview = () => {
               icon="add"
               color={tintColor}
               size={24}
-              onPress={modalCtx.openModal}
+              onPress={handleNewForumClick}
             />
           ),
         }}
@@ -131,7 +140,7 @@ const YagOverview = () => {
               icon="add"
               color={tintColor}
               size={24}
-              onPress={modalCtx.openModal}
+              onPress={handleNewForumClick}
             />
           ),
         }}
