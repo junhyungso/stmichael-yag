@@ -2,7 +2,7 @@ import { Modal, StyleSheet, Text, View } from 'react-native';
 import Input from '../Auth/Input';
 import Button from './Button';
 
-const InputModal = ({ isVisible, onClose }) => {
+const InputModal = ({ isVisible, onClose, onPublish }) => {
   return (
     <Modal
       animationType="slide" // Or 'fade' or 'none'
@@ -29,13 +29,12 @@ const InputModal = ({ isVisible, onClose }) => {
                 onChangeText: () => {},
                 value: '',
               }}
-              // invalid={!inputs.description.isValid}
             />
           </View>
           <Button onPress={onClose}>
             <Text>Close</Text>
           </Button>
-          <Button onPress={onClose}>
+          <Button onPress={onPublish}>
             <Text>Publish</Text>
           </Button>
         </View>
