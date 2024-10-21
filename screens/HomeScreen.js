@@ -92,6 +92,10 @@ const HomeScreen = () => {
           source={require('../assets/praisenight.jpg')}
         />
       </View>
+      <View style={styles.massSchedule}>
+        <Text style={styles.massScheduleText}>Mass Time: </Text>
+        <Text style={styles.massScheduleText}>Every Sunday 5:30pm</Text>
+      </View>
       <View>
         <Text style={styles.birthdayTitle}>Upcoming Birthdays...</Text>
         <FlatList
@@ -99,11 +103,6 @@ const HomeScreen = () => {
           renderItem={renderBirthdayItem}
           keyExtractor={(profile) => profile.birthday}
         ></FlatList>
-      </View>
-
-      <View style={styles.massSchedule}>
-        <Text style={styles.massScheduleText}>Mass Time: </Text>
-        <Text style={styles.massScheduleText}>Every Sunday 5:30pm</Text>
       </View>
     </>
   );
@@ -128,6 +127,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     padding: 10,
+    elevation: 3,
+    shadowColor: GlobalStyles.colors.error500,
+    shadowRadius: 4,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.4,
+    zIndex: 1,
   },
   celebration: {
     fontSize: 14,
@@ -141,6 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 'auto',
+    marginTop: 8,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: 'black',
@@ -149,6 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary400,
   },
   imageContainer: {
+    marginTop: 4,
     // width: deviceWidth < 380 ? 150 : '100%',
     // height: deviceWidth < 380 ? 150 : '20%',
   },

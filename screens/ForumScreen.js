@@ -17,19 +17,16 @@ const ForumScreen = () => {
     modalCtx.closeModal();
   };
 
-  if (modalCtx.modalStatus) {
-    return (
-      <InputModal
-        isVisible={modalCtx.modalStatus}
-        onClose={onModalClose}
-        onPublish={onModalPublish}
-      />
-    );
-  }
-
   return (
     <View>
       <Text>List of Forums</Text>
+      {modalCtx.modalStatus && (
+        <InputModal
+          isVisible={modalCtx.modalStatus}
+          onClose={onModalClose}
+          onPublish={onModalPublish}
+        />
+      )}
     </View>
   );
 };
