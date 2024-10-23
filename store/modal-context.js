@@ -1,6 +1,10 @@
 import { createContext, useState } from 'react';
 
 export const ModalContext = createContext({
+  newTitleInput: '',
+  setNewTitleInput: () => {},
+  newDescriptionInput: '',
+  setNewDescriptionInput: () => {},
   modalStatus: false,
   openModal: () => {},
   closeModal: () => {},
@@ -8,6 +12,8 @@ export const ModalContext = createContext({
 
 const ModalContextProvider = ({ children }) => {
   const [modalStatus, setModalStatus] = useState(false);
+  const [newTitleInput, setNewTitleInput] = useState('');
+  const [newDescriptionInput, setNewDescriptionInput] = useState('');
 
   const openModal = () => {
     setModalStatus(true);
@@ -18,6 +24,10 @@ const ModalContextProvider = ({ children }) => {
   };
 
   const value = {
+    newTitleInput: newTitleInput,
+    setNewTitleInput: setNewTitleInput,
+    newDescriptionInput: newDescriptionInput,
+    setNewDescriptionInput: setNewDescriptionInput,
     modalStatus: modalStatus,
     openModal: openModal,
     closeModal: closeModal,

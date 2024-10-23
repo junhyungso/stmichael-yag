@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { Modal, StyleSheet, Text, View } from 'react-native';
+import { ModalContext } from '../../store/modal-context';
 import Input from '../Auth/Input';
 import Button from './Button';
 
 const InputModal = ({ isVisible, onClose, onPublish }) => {
+  const modalCtx = useContext(ModalContext);
+
   return (
     <Modal
       animationType="slide" // Or 'fade' or 'none'
@@ -15,19 +19,18 @@ const InputModal = ({ isVisible, onClose, onPublish }) => {
           <View>
             <Input
               label="Title: "
-              onUpdateValue={() => {}}
-              value={''}
+              onUpdateValue={modalCtx.setNewTitleInput()}
+              value={modalCtx.newTitleInput}
               isInvalid={false}
             />
           </View>
           <View>
             <Input
               label="Description"
-              z
               textInputConfig={{
                 multiline: true,
-                onChangeText: () => {},
-                value: '',
+                onChangeText: modalCtx.setNewDescriptionInput((input) => input),
+                value: modalCtx.newTitleInput,
               }}
             />
           </View>

@@ -1,12 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import InputModal from '../components/ui/InputModal';
 import { ModalContext } from '../store/modal-context';
 
 const ForumScreen = () => {
-  const [newTitleInput, setNewTitleInput] = useState('');
-  const [newDescriptionInput, setNewDescriptionInput] = useState('');
-
   const modalCtx = useContext(ModalContext);
 
   const onModalClose = () => {
