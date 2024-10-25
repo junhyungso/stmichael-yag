@@ -26,7 +26,7 @@ const InputModal = ({ isVisible, onClose, onPublish }) => {
           </View>
           <View>
             <Input
-              label="Description"
+              label="Description: "
               textInputConfig={{
                 multiline: true,
                 onChangeText: modalCtx.setNewDescriptionInput((input) => input),
