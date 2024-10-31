@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
 import IconButton from './components/ui/IconButton';
@@ -160,7 +160,7 @@ const YagOverview = () => {
 };
 
 const Root = () => {
-  const [isTryingLogin, setIsTryingLogin] = useState(true);
+  // const [isTryingLogin, setIsTryingLogin] = useState(true);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -170,7 +170,7 @@ const Root = () => {
       if (storedToken) {
         authCtx.authenticate(storedToken);
       }
-      setIsTryingLogin(false);
+      // setIsTryingLogin(false);
     };
 
     fetchToken();
